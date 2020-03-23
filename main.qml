@@ -7,6 +7,8 @@ import QtMultimedia 5.14
 import QtWinExtras 1.0 as Win
 import QtQuick.Dialogs 1.0
 
+
+//just comment
 ApplicationWindow {
     id: window
     visible: true
