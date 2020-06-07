@@ -6,435 +6,313 @@ import QtQuick.Controls.Material 2.12
 import QtMultimedia 5.14
 import QtWinExtras 1.0 as Win
 import QtQuick.Dialogs 1.0
+import QtGraphicalEffects 1.14
+//import QtCharts 2.3
 
 
-//just comment
+
 ApplicationWindow {
-    id: window
+    signal makeRequest()
+    signal restRequest();
+    signal hashMD5(string pop);
+    signal token(string add);
+    id:appw  // window
     visible: true
     width: 480
     height: 640
-    title: qsTr("Tabs")
-    Material.theme: Material.Dark
+    title: qsTr("VelikanApp")
+    Material.theme: Material.Light
     Material.accent: Material.Indigo
-//    header: Rectangle{
-//        width: maximumWidth; height: 55
-//        color: Material.color(Material.Indigo)
+    //    header: Rectangle{
+    //        width: maximumWidth; height: 55
+    //        color: Material.color(Material.Indigo)
 
+    //    }
+
+
+
+//    Connections{
+//        target: httpcontroller
+//        function onToQML2(pString){
+//            txa42.append(pString);
+//        }
 //    }
 
-//    Drawer {
-//              id: drawer
-//              width: 0.66 * window.width
-//              height: window.height
 
-//              Label {
-//                  text: "Content goes here!"
-//                  anchors.centerIn: parent
-//              }
-//          }
-
-
-
-//    }
+    //    }
 
     SwipeView {
         id: swipeView
         anchors.fill: parent
-        currentIndex: tabBar.currentIndex
+       // currentIndex: 4
+       // currentIndex: tabBar.currentIndex
 
-        Page1Form {
-        //            background: Rectangle{
-            //                color: "#FFFFFF"
-
-
-
-
-
-                        GridLayout{
-
-
-                            //Layout.alignment: Qt.AlignCenter
-                            anchors.fill: parent
-                            columns: 1
-                            Text {
-                                id: name
-                                text: qsTr("Пожалуйста зарегистрируйтесь")
-                                font{
-                                    pixelSize: 25
-
-                                }
-                                color: "Grey"
-                                //Layout.alignment: Qt.AlignCenter
-//                                Layout.leftMargin: 50
-//                                Layout.topMargin: 30
-                            }
-                            TextField{
-                                placeholderText: qsTr("Логин")
-
-                                font{
-                                    pixelSize: 20
-
-                                }
-                                Layout.alignment: Qt.AlignCenter
-                                Layout.topMargin: 30
-                               // Layout.leftMargin: 50
-                                Layout.preferredWidth: 370
-                                Layout.preferredHeight: 50
-                            }
-
-                            TextField{
-                                Layout.alignment: Qt.AlignCenter
-                                 placeholderText: qsTr("Пароль")
-                                 font{
-                                    pixelSize: 20
-                                 }
-                                 echoMode: TextInput.Password
-                                // Layout.leftMargin: 50
-                                 Layout.preferredWidth: 370
-                                 Layout.preferredHeight: 50
-                            }
-                            RadioButton{
-                                text: qsTr("М")
-                                //Layout.leftMargin: 50
-                               // Layout.alignment: Qt.AlignCenter
-                            }
-
-                            RadioButton{
-                                text: qsTr("Ж")
-                                //Layout.leftMargin: 50
-                             //   Layout.alignment: Qt.AlignCenter
-                            }
-
-                            ComboBox{
-                                 model: [ "Россия", "USA", "Japan" ]
-                               //  Layout.alignment: Qt.AlignCenter
-                                 //Layout.leftMargin: 50
-                                 Layout.preferredWidth: 370
-                                 Layout.preferredHeight: 50
-                                 font{
-                                    pixelSize: 20
-                                 }
-
-                            }
-                            Switch{
-                                //Layout.alignment: Qt.AlignCenter
-                                text: qsTr("Подтверждаю согласие на обработку персональных\nданных")
-                                font{
-                                    pixelSize: 15
-                                    //family: "Tahoma"
-
-                                }
-
-                                //Layout.leftMargin: 50
-
-                            }
-
-                            DelayButton{
-                                //Layout.alignment: Qt.AlignCenter
-                                text: "Зарегистрироваться"
-                                font{
-                                    pixelSize: 20
-                                }
-
-                                Layout.preferredWidth: 370
-                                Layout.preferredHeight: 50
-                               // Layout.leftMargin: 50
-
-
-
-                            }
-
-            //                Button {
-            //                    text: "Test button"
-            //                    palette {
-            //                        button: "green"
-            //                    }
-            //                }
-
-
-
-
-
-                        }
-
-
-
+        Lab1 {
+            id: page1
         }
 
-        Page2Form {
-//            Material.theme: Material.Light
-//            Material.accent: Material.Red
+        Lab2 {
+            id: page2
+        }
 
-           GridLayout{
-               anchors.fill: parent
-               columns: 3
-               RadioButton {
-                        id:rb1
-                        checked: true
-                        Layout.row: 1
-                        Layout.alignment: Qt.AlignLeft
-                        text: qsTr("Видео")
-                        Layout.leftMargin: 150
+        //}
+        Lab3 {
+            id: page3
+        }
+ /*       Page{
+            GridLayout{
+                anchors.fill: parent
 
 
+                RowLayout{
+
+                    RectangularGlow {
+                        id: effect
+                        anchors.fill: img2
+                        glowRadius: sl1.value * 100
+                        spread: 0.2
+                        color: "blue"
+                        cornerRadius: glowRadius
+                    }
+                    Image{
+                        id: img2
+                        source: "qrc:/image.png"
+                        fillMode: Image.PreserveAspectFit
 
                     }
-                    RadioButton {
-                        id: rb2
-                        Layout.row: 1
-                       // Layout.column: 2
-                        checked: false
-                        text: qsTr("Камера")
-                        Layout.leftMargin: 120
-                        Layout.alignment: Qt.AlignCenter
-
-                    }
-
-                    RowLayout{
-                        Layout.row: 2
-                        Text {
-                            //Layout.row: 2
-                            Layout.alignment: Qt.AlignCenter
-                            id: zvuk
-                            text: qsTr("Громкость звука:")
-                            Layout.leftMargin: 40
-                            color: "Grey"
-                            font{
-                                pixelSize: 21
-
-                            }
-                            visible: {if(rb1.checked){true}else{false}}
-
-                        }
-                        Slider{
-
-                          //  Layout.row: 3
-
-                            value: 0.5
-                            Layout.leftMargin: 10
-                            Layout.alignment: Qt.AlignLeft
-                            visible: {if(rb1.checked){true}else{false}}
-                            id: volumeSlider
-                            property real volume: QtMultimedia.convertVolume(volumeSlider.value,QtMultimedia.LogarithmicVolumeScale,QtMultimedia.LinearVolumeScale)
 
 
-                        }
-                    }
-                    Rectangle {
-                        visible: {if(rb1.checked){true}else{false}}
-                        Layout.row: 3
-                        width: 480
-                        height: 300
-                       // Layout.fillHeight: true
-                        //Layout.fillWidth: true
-                    MediaPlayer {
-                        id: mediaplayer
-                        volume: volumeSlider.volume
-                        source: "qrc:/video/sample.mp4"
-                       // source : url
-                        onPositionChanged: {
-                            sliderpl.sync = true
-                            sliderpl.value = mediaplayer.position
-                            sliderpl.sync = false
-                        }
-                    }
+                    //                    Rectangle {
+                    //                        id: rect
+                    //                        color: "black"
+                    //                        anchors.centerIn: parent
+                    //                        width: Math.round(parent.width / 1.5)
+                    //                        height: Math.round(parent.height / 2)
+                    //                        radius: 0
+                    //                    }
+                    Slider{
+                        id:sl1
+                        to: 1
+                        value: 0.5
+                        from: 0
 
-                    VideoOutput {
-                        anchors.fill: parent
-                        source: mediaplayer
-                    }
-
-//                    MouseArea {
-//                        id: playArea2
-//                        anchors.fill: parent
-//                        onPressed: mediaplayer.play();
-//                    }
-                }
-
-
-              RowLayout{
-                  Layout.row: 4
-//                  Button {
-//                                  id: openButton
-
-//                                  text: qsTr("...")
-//                                  Layout.preferredWidth: openButton.implicitHeight
-//                                  onClicked: fileDialog.open()
-
-//                                  FileDialog {
-//                                      id: fileDialog
-
-//                                      folder : musicUrl
-//                                      title: qsTr("Open file")
-//                                      nameFilters: [qsTr("MP4 files (*.mp4)"), qsTr("All files (*.*)")]
-//                                      onAccepted: mediaPlayer.source = fileDialog.fileUrl
-//                                  }
-//                              }
-                  Slider   {
-                       visible: {if(rb1.checked){true}else{false}}
-                       id: sliderpl
-                       width: parent.width
-                       Layout.leftMargin: 100
-                       to: mediaplayer.duraction //длительность
-                       property bool sync: false
-                       onValueChanged: {
-                           if(!sync){
-                               mediaplayer.seek(value)
-                           }
-                       }
-
-                  }
-                  Button{
-                       visible: {if(rb1.checked){true}else{false}}
-                       id: btn
-                       enabled: mediaplayer.hasVideo
-                       //Layout.preferredWidth: btn.implicitHeight
-                       text: mediaplayer.playbackState === MediaPlayer.PlayingState ? "||" : "►"
-                       onClicked: mediaplayer.playbackState === MediaPlayer.PlayingState ? mediaplayer.pause() : mediaplayer.play()
-                     //  Layout.row: 6
-                       Layout.leftMargin: 50
-                  }
-              }
-
-
-               //Camera
-               Item {
-                    visible: {if(rb2.checked){true}else{false}}
-                   Layout.row: 2
-                    width: 480
-                    height: 360
-
-                    Camera {
-                        id: camera
-
-                        imageCapture {
-                            onImageCaptured: {
-                                // Show the preview in an Image
-                                photoPreview.source = preview
-                            }
-                       }
-                    }
-
-                    VideoOutput {
-                        source: camera
-                        focus : visible // to receive focus and capture key events when visible
-                        anchors.fill: parent
-
-                        MouseArea {
-                            anchors.fill: parent;
-                            onClicked: camera.imageCapture.capture()
-                        }
-                    }
-
-                   Image {
-
-                        id: photoPreview
-                        Layout.row: 3
                     }
 
                 }
-               Button{
-                 visible: {if(rb2.checked){true}else{false}}
-                 Layout.row: 3
-                 onClicked:camera.imageCapture.captureToLocation("C:/Users/Ivan/Documents/Velikanov_Ivan_181-331_mob_dev/Lab1/photo")
-                 text: qsTr("Сделать фото")
-                 Layout.leftMargin: 170
-
-               }
-               //Camera
-
-
-           }
-
-
-
-        }
-
-//}
-        Page3Form{
-           GridLayout{
-               anchors.fill: parent
-            Switch{
-                id: switch2
             }
-
-           }
-
-//            RadioButton{
-//            id:rb1
-//            }
-//            RadioButton{
-//            anchors.left:rb1.right
-//            }
-//            TextField{
-//            id: tf
-//            anchors.top: rb1.bottom
-//            text:   "Vanya"
-//            background: Rectangle{
-//            color: "#886f6f"
-//            radius: 5
-//            implicitHeight: 35
-//            implicitWidth: 350
-//            border.color: "white"
-//            border.width: 1
-//            }
-
-//            }
-//            ComboBox{
-//            anchors.left: tf.right
-//             model: ["First", "Second", "Third"]
-
-
-
-//            }
-//            DelayButton{
-//            id:delbut
-//            text: "Progres"
-//            anchors.top: tf.bottom
-//            anchors.margins: 10
-//            width: 350
-//            anchors.horizontalCenter:  parent.horizontalCenter
-
-//            }
-//            Switch{
-//            id: sw
-//            anchors.top: delbut.bottom
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            //anchors.verticalCenter: parent.verticalCenter
-//            //anchors.bottom: parent.bottom
-//            }
-//            Text {
-//                id: tx1
-//                text: qsTr("Hello Vanya")
-//                anchors.top: sw.bottom
-//                anchors.verticalCenter: parent.verticalCenter
-//                anchors.horizontalCenter: parent.horizontalCenter
-//                font{
-//                    bold:true
-//                    family: "Tahoma"
-//                    pixelSize: 16
-//                    italic: true
-
+        }
+        Page{
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.row: 3
+                Layout.column: 0
+                Layout.columnSpan: 2
+                Rectangle{ // картинка
+                    id: rec
+                    width: 200
+                    height: 150
+                    color: "teal"
+                    //source: "qrc:/image.png" // картинка к которой применяется эффект
+                 //   visible: false
+                }
+//                MaskedBlur { // эффект размытия градиентом
+//                    Layout.preferredHeight: image.height
+//                    Layout.preferredWidth: image.width
+//                    source: image
+//                    maskSource: linearGradient
+//                    radius: sliderMasked.position*50 // зависисимость степени размытия от позиции слайдера
+//                    samples: 25
+//                    Layout.alignment: Qt.AlignCenter
 //                }
-//            }
+                LinearGradient { // линейный градиент
+                    anchors.fill: rec
+                    id: linearGradient
+                    Layout.preferredHeight: 100
+                    Layout.preferredWidth: 100
+                    //opacity: 0.0
+                    source: Image{
+                        id: image
+                        source: "qrc:/eagle.png" // это сама масkа которая применяется
+                    }
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "white" }
+                        GradientStop { position: 1.0; color: "red" }
+                    }
+                    start: Qt.point(0, 0) // эффект до середины картинки
+                    end: Qt.point(image.width, image.height * sliderMasked.value)
+                    //visible: false
+                }
+            }
+            RowLayout{
+                Layout.fillWidth: true
+                Layout.row: 3
+                Layout.column: 1
+                Layout.columnSpan: 2
+                Slider{ // слайдер
+                    id: sliderMasked
+                    from: 0.0
+                    to: 1.0
+                }
+            }
+        }
+*/
+        Lab4 {
+            id: page4
+        }
+        Lab5 {
+            id: page5
+        }
+        Lab6 {
+            id: page6
+        }
+        Lab7 {
+            id: page7
+        }
+        Lab9 {
+            id: page9
         }
     }
 
-    footer: TabBar {
-        id: tabBar
-        currentIndex: swipeView.currentIndex
+//    footer: TabBar {
+//        id: tabBar
+//        currentIndex: swipeView.currentIndex
 
 
-        TabButton {
-            text: qsTr("Lab 1")
+//        TabButton {
+//            text: qsTr("Lab 1")
 
-        }
-        TabButton {
-            text: qsTr("Page 2")
-        }
-        TabButton {
-            text: qsTr("Page 3")
+//        }
+//        TabButton {
+//            text: qsTr("Page 2")
+//        }
+//        TabButton {
+//            text: qsTr("Page 3")
+//        }
+//        TabButton{
+//            text: qsTr("Page 4")
+//        }
+//        TabButton{
+//            text: qsTr("Page 5")
+//        }
+//    }
+    Drawer{
+        id: dr1
+        width: parent.width * 0.5
+        height: parent.height
+        dragMargin: 50
+        GridLayout{
+            rows: 14
+            columns: 1
+            rowSpacing: 14
+            anchors.fill: parent
+            Button{
+                text: "Lab 1"
+                Layout.row: 0
+                Layout.column: 0
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Material.background: Material.Amber
+                Material.foreground: Material.Indigo
+                onClicked: {
+                    swipeView.currentIndex = 0;
+                    dr1.close();
+                }
+            }
+            Button{
+                text: "Lab 2"
+                Layout.row: 1
+                Layout.column: 0
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Material.background: Material.Amber
+                Material.foreground: Material.Indigo
+                onClicked: {
+                    swipeView.currentIndex = 1;
+                    dr1.close();
+                }
+            }
+            Button{
+                text: "Lab 3"
+                Layout.row: 2
+                Layout.column: 0
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Material.background: Material.Amber
+                Material.foreground: Material.Indigo
+                onClicked: {
+                    swipeView.currentIndex = 2;
+                    dr1.close();
+                }
+            }
+            Button{
+                text: "Lab 4"
+                Layout.row: 3
+                Layout.column: 0
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Material.background: Material.Amber
+                Material.foreground: Material.Indigo
+                onClicked: {
+                    swipeView.currentIndex = 3;
+                    dr1.close();
+                }
+            }
+            Button{
+                text: "Lab 5"
+                Layout.row: 4
+                Layout.column: 0
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Material.background: Material.Amber
+                Material.foreground: Material.Indigo
+                onClicked: {
+                    swipeView.currentIndex = 4;
+                    dr1.close();
+                }
+            }
+            Button{
+                text: "Lab 6"
+                Layout.row: 5
+                Layout.column: 0
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Material.background: Material.Amber
+                Material.foreground: Material.Indigo
+                onClicked: {
+                    swipeView.currentIndex = 5;
+                    dr1.close();
+                }
+
+            }
+            Button{
+                text: "Lab 7"
+                Layout.row: 6
+                Layout.column: 0
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Material.background: Material.Amber
+                Material.foreground: Material.Indigo
+                onClicked: {
+                    swipeView.currentIndex = 6;
+                    dr1.close();
+                }
+
+            }
+            Button{
+                text: "Lab 9"
+                Layout.row: 7
+                Layout.column: 0
+                Layout.columnSpan: 1
+                Layout.fillWidth: true
+                Material.background: Material.Amber
+                Material.foreground: Material.Indigo
+                onClicked: {
+                    swipeView.currentIndex = 7;
+                    dr1.close();
+                }
+
+            }
         }
     }
 }
+

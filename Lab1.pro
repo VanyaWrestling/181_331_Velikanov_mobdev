@@ -1,4 +1,5 @@
-QT += quick
+QT += quick network
+QT += charts
 
 
 CONFIG += c++11
@@ -8,6 +9,11 @@ CONFIG += c++11
 # depend on your compiler). Refer to the documentation for the
 # deprecated API to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+DEPENDPATH += C:\Qt\Tools\OpenSSL\Win_x64\include
+INCLUDEPATH += C:\Qt\Tools\OpenSSL\Win_x64\include
+
+
+LIBS += C:\Qt\Tools\OpenSSL\Win_x64\lib\libcrypto.lib
 
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -15,6 +21,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        cryptocontroller.cpp \
+        httpcontroller.cpp \
+        mailmodel.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -29,3 +38,8 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    cryptocontroller.h \
+    httpcontroller.h \
+    mailmodel.h

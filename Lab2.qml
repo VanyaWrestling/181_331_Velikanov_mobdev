@@ -14,6 +14,42 @@ Page { //2 Laba
     //            Material.theme: Material.Light
     //            Material.accent: Material.Red
     id:page2
+    header:
+        ToolBar{
+        anchors.top: parent.top
+        background: Rectangle{
+            implicitHeight: 50
+            width: parent.width
+            Image{
+                id:hmg4
+                source: ""
+                anchors.right: txt4.left
+                anchors.rightMargin: 6
+                width: 30
+                height: 20
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Text {
+                id: txt4
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pointSize: 16
+                font.family: "Helvetica"
+                font.italic: true
+                color: "#ffffff"
+                text: "Lab 2"
+
+            }
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#3F51B5" }
+                GradientStop { position: 0.25; color: "#9C27B0" }
+                GradientStop { position: 0.5; color: "#E91E63" }
+                GradientStop { position: 0.75; color: "#FF9800" }
+                GradientStop { position: 1.0; color: "#FFEB3B" }
+            }
+        }
+    }
+
     GridLayout{
         anchors.fill: parent
         columns: 3
@@ -24,6 +60,9 @@ Page { //2 Laba
             Layout.alignment: Qt.AlignLeft
             text: qsTr("Видео")
             Layout.leftMargin: 150
+            onClicked: {
+                camera.stop();
+            }
             
             
             
@@ -36,6 +75,9 @@ Page { //2 Laba
             text: qsTr("Камера")
             Layout.leftMargin: 120
             Layout.alignment: Qt.AlignCenter
+            onClicked: {
+                camera.start();
+            }
             
         }
         
@@ -155,7 +197,7 @@ Page { //2 Laba
             
             Camera {
                 id: camera
-                
+                captureMode: stop()
                 imageCapture {
                     onImageCaptured: {
                         // Show the preview in an Image
@@ -165,6 +207,7 @@ Page { //2 Laba
             }
             
             VideoOutput {
+                id:test
                 source: camera
                 focus : visible // to receive focus and capture key events when visible
                 anchors.fill: parent
@@ -176,7 +219,10 @@ Page { //2 Laba
             }
             
             Image {
-                
+                anchors.top: test.bottom
+                anchors.topMargin: 15
+                width: 150
+                height: 100
                 id: photoPreview
                 Layout.row: 3
             }

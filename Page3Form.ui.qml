@@ -11,8 +11,8 @@ Page {
 //        padding: 10
 //    }
 
-    Label {
-        text: qsTr("You are on Page 3.")
-        anchors.centerIn: parent
-    }
+//    Label {
+//        text: qsTr("You are on Page 3.")
+//        anchors.centerIn: parent
+//    }
 }

@@ -1,10 +1,20 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Page1Form.ui.qml</file>
-        <file>Page2Form.ui.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>Page3Form.ui.qml</file>
         <file>video/sample.mp4</file>
+        <file>image.png</file>
+        <file>pic_2.png</file>
+        <file>Lab1.qml</file>
+        <file>Lab2.qml</file>
+        <file>Lab3.qml</file>
+        <file>Lab4.qml</file>
+        <file>eagle.png</file>
+        <file>icon_1.png</file>
+        <file>icon-1.png</file>
+        <file>Lab5.qml</file>
+        <file>Lab6.qml</file>
+        <file>Lab7.qml</file>
+        <file>Lab9.qml</file>
     </qresource>
 </RCC>

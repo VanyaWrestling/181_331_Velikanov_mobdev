@@ -1,11 +1,34 @@
-#ifndef HTTPCONTROLLER_H
-#define HTTPCONTROLLER_H
+#ifndef QHTTPCONTROLLER_H
+#define QHTTPCONTROLLER_H
 
-
-class httpcontroller
+#include <QObject>
+#include <QNetworkAccessManager>
+#include "mailmodel.h"
+#include <QFile>
+class HttpController : public QObject
 {
+    Q_OBJECT
 public:
-    httpcontroller();
+    explicit HttpController(QObject *parent = nullptr);
+    QNetworkAccessManager * nam;
+    QString m_accessToken; // полученный access_token
+    MailModel *mail_model; // наша модель
+    QString private_key; //получение секрета
+    QString sigMd5; // получение хеша
+    QString uid;
+public slots:
+    //void SlotFinished(QNetworkReply *reply);
+    void getSiteValue();
+    QString token(QString add);
+    void restRequest();
+    void hashMD5(QString add);
+signals:
+    void toQML(QString reply, QString number);
+    void toQML3(QString str1, QString str2);
+    void toQML4();
+
+protected:
+    QObject *showHttp;
 };
 
-#endif // HTTPCONTROLLER_H
+#endif // QHTTPCONTROLLER_H
