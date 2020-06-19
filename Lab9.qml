@@ -48,37 +48,60 @@ Page{
             }
         }
     }
+    Connections{
+        target: httpcontroller
+        function onToQML91(more,less, between){
+            //rcterr91.visible = false;
+            //crt91.visible = true;
+            crb91.values = [more];
+            crb92.values = [less];
+            crb93.values = [between]
 
+           if(more>less){bvl91.max = more /* + bvl91.tickCount*/;}
+           else if(less>more){bvl91.max = less /* + bvl91.tickCount*/;}
+           else {bvl91.max = between}
+        }
+    }
     ChartView{
+        id: crt91
         anchors.fill: parent
         title: "Хабиб Нурмагомедов vs Konor McGregor"
         legend.alignment: Qt.AlignBottom
         antialiasing: true
         BarSeries{ //данные (пары X-Y)
-            axisX: xAxis
-            axisY: yAxis
+
+            axisX: BarCategoryAxis { categories: ["Current"]/*; titleFont.family: "Arial"; titleFont.italic: true; titleFont.pointSize: 12*/ }
+           // axisY: bvl91
+            axisY: ValueAxis{id: bvl91; min: 0; /* tickCount: 2; titleFont.family: "Arial"; titleFont.italic: true; titleFont.pointSize: 12*/ }
             BarSet{
-                label: "Удары";
-                values: [111,88]}
+                 id: crb91;
+                label: "Меньше 50 Кб";
+               // values: [1]
+                //values: [Qt.point(0, 5), Qt.point(2, 1), Qt.point(3, 5)]
+            }
             BarSet{
-                label: "Акцинт. удары";
-                values: [99, 37]
+                id: crb92;
+                label: "Больше 80 Кб";
+               // values: [1]
                 color: "red"
             }
             BarSet{
-                label: "Тайкдауны";
-                values: [4, 0]
+                id: crb93;
+                label: "Между";
+                //values: [1]
             }
 
 
         }
+        //axisX: BarCategoryAxis { categories: ["Current"]/*; titleFont.family: "Arial"; titleFont.italic: true; titleFont.pointSize: 12*/ }
+       // axisY: ValueAxis{id: bvl91; min: 0; tickCount: 5/*; titleFont.family: "Arial"; titleFont.italic: true; titleFont.pointSize: 12*/ }
         //ValueAxis - ось непрерывных величин
-        BarCategoryAxis{ // горизонтальная ось
-            id: xAxis
-        }
-        ValueAxis{ // вертикальная числовая ось
-            id: yAxis
-        }
+//        BarCategoryAxis{ // горизонтальная ось
+//            id: xAxis
+//        }
+//        ValueAxis{ // вертикальная числовая ось
+//            id: yAxis
+//        }
 
 
        }

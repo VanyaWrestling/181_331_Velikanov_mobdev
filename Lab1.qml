@@ -88,7 +88,7 @@ Page {
             Layout.alignment: Qt.AlignCenter
             Layout.topMargin: 30
             // Layout.leftMargin: 50
-            Layout.preferredWidth: 370
+            Layout.preferredWidth: 520
             Layout.preferredHeight: 50
         }
         
@@ -101,7 +101,7 @@ Page {
             }
             echoMode: TextInput.Password
             // Layout.leftMargin: 50
-            Layout.preferredWidth: 370
+            Layout.preferredWidth: 520
             Layout.preferredHeight: 50
         }
         RadioButton{
@@ -120,7 +120,7 @@ Page {
             model: [ "Россия", "USA", "Japan" ]
              Layout.alignment: Qt.AlignCenter
             //Layout.leftMargin: 50
-            Layout.preferredWidth: 370
+            Layout.preferredWidth: 520
             Layout.preferredHeight: 50
             font{
                 pixelSize: 20
@@ -150,7 +150,7 @@ Page {
             }
             Material.background: Material.Amber
             Material.foreground: Material.Indigo
-            Layout.preferredWidth: 370
+            Layout.preferredWidth: 520
             Layout.preferredHeight: 50
             // Layout.leftMargin: 50
             

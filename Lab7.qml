@@ -59,6 +59,7 @@ Page{
           Layout.alignment: Qt.AlignCenter
         }
 
+
         TextField {
             id: cryptkey
 //            Layout.row: 0

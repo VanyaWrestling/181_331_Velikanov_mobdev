@@ -18,6 +18,9 @@
 #include <QJsonObject>
 #include <QCryptographicHash>
 #include <mailmodel.h>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlTableModel>
 
 //HttpController::HttpController(QObject *QMLObject) : pocaz(QMLObject)
 HttpController::HttpController(QObject *QMLObject) : showHttp(QMLObject)
@@ -190,6 +193,10 @@ void HttpController::restRequest(){
      // QJsonArray smth = itog.toArray();
       //qDebug()<<"? что тут будет" << document;
      // Перебираем все элементы массива
+
+       int more = 0;
+       int less = 0;
+       int between = 0;
        for(int i = 0; i < document.count(); i++){
 
         QJsonObject znach = document.at(i).toObject();
@@ -204,6 +211,9 @@ void HttpController::restRequest(){
 //       // Забираем значения id
          int commentscount = znach.value("size").toInt();
          qDebug() << commentscount;
+         if(commentscount > 80000) more++;
+         else if(commentscount < 60000) less++;
+         else between++;
 
 //       // Забираем ссылку на главное фото
          QUrl photo = znach.value("src").toString();
@@ -216,4 +226,143 @@ void HttpController::restRequest(){
        qDebug() << mail_model->Mailcommentscount;
 
    }
+       qDebug() << more << less << between;
+       emit toQML91(more, less, between);
+}
+
+bool HttpController::db_read(){ // функция для чтения получившейся БД
+
+
+    if (mail_model->rowCount() > 0) {
+        mail_model->clear();
+    }
+
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setHostName("friends1234");
+    db.setDatabaseName("C:/Qt/mailvelikan.db"); // название таблицы
+
+    db.open();                            // используется для отображения в QML
+
+
+    QSqlQuery query;
+
+    if (query.exec("SELECT * FROM mailvelikan") == true ){
+        query.exec("SELECT * FROM mailvelikan");
+        while (query.next()) {
+            int commentscount = query.value(0).toInt();
+            QString userid = query.value(1).toString();
+            QString textp = query.value(2).toString();
+            QUrl photo = query.value(3).toUrl();
+
+            qDebug() << commentscount << userid << textp  << photo;
+
+            mail_model->addItem(MailObject(userid,textp,photo, commentscount));
+
+          }
+            db.close();
+
+            qDebug() << "все норм";
+            return 1;
+    }
+    else {
+        QString errore = "В бд нет данных, нажми  обновить";
+        qDebug() << errore;
+
+        return 0;
+    }
+
+        return 0;
+
+}
+
+void HttpController::db_write(){
+
+    QEventLoop loop;
+    nam = new QNetworkAccessManager();
+
+    QObject::connect(nam, // связываем loop  с нашим менеджером
+                     SIGNAL(finished(QNetworkReply*)),
+                     &loop,
+                     SLOT(quit()));
+
+      qDebug() << "Наш токен REST DB: " << m_accessToken;
+       qDebug() << "Наш хеш REST DB" << sigMd5;
+    QNetworkReply *reply = nam->get(QNetworkRequest(QUrl( "http://www.appsmail.ru/platform/api?method=photos.get&app_id=779246&session_key="+m_accessToken+"&sig="+sigMd5+"&aid=_myphoto")));
+
+
+
+
+     // qDebug() << "Наша nam" << nam;
+    loop.exec();
+   // QString photo(reply->readAll());
+
+   //  qDebug() << "Наша URL-ka" << reply;
+   //  qDebug() << "*** Список друзей в формате json ***" << photo;
+
+//    // вся строка JSON с сервера грузится в QJsonDocument
+      QJsonArray document = QJsonDocument::fromJson(reply->readAll()).array();
+
+     qDebug() <<"Наш document DB"<< document;
+
+     // открытие БД
+     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+     db.setHostName("friends1234");
+     db.setDatabaseName("C:/Qt/mailvelikan.db"); // название таблицы
+
+     db.open();
+
+     QSqlQuery query;
+     query.exec("DROP TABLE mailvelikan");
+     query.exec("CREATE TABLE mailvelikan(" // создаем таблицу friends
+                     "Mail_Size int,"
+                     "MailTitle varchar(255),"
+                     "MailComment varchar(255),"
+                     "MailPhoto varchar(255))");
+
+     if (mail_model->rowCount() > 0) {
+         mail_model->clear();
+     }
+
+     int more = 0;
+     int less = 0;
+     int between =0 ;
+     for(int i = 0; i < document.count(); i++){
+
+      QJsonObject znach = document.at(i).toObject();
+//       // Забираем значения свойств имени
+       QString userid = znach.value("title").toString();
+       qDebug() << userid;
+
+//       // Забираем значения свойств фамилии
+       QString textp = znach.value("comment").toString();
+      qDebug() << textp;
+
+      // Забираем ссылку на главное фото
+           QUrl photo = znach.value("src").toString();
+           qDebug() << photo;
+
+
+//       // Забираем значения id
+       int commentscount = znach.value("size").toInt();
+       qDebug() << commentscount;
+       if(commentscount > 80000) more++;
+       else if(commentscount < 60000) less++;
+       else between++;
+
+//
+
+       query.prepare("INSERT INTO mailvelikan(Mail_Size, MailTitle, MailComment, MailPhoto)"
+                     "VALUES (:Mail_Size, :MailTitle, :MailComment, :MailPhoto)");
+
+       query.bindValue(":Mail_Size", commentscount);
+       query.bindValue(":MailTitle", userid);
+       query.bindValue(":MailComment", textp);
+       query.bindValue(":MailPhoto", photo);
+       query.exec();
+
+    }
+     QSqlDatabase::removeDatabase("QSQLITE");
+     db.close();
+    emit toQML91(more, less, between);
+
 }

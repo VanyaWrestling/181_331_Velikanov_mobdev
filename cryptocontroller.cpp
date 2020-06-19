@@ -6,7 +6,6 @@
 #include <QDataStream>
 #include <cstring>
 
-
 CryptoController::CryptoController(QObject *parent) : QObject(parent)
 {
 

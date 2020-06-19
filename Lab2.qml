@@ -88,7 +88,7 @@ Page { //2 Laba
                 Layout.alignment: Qt.AlignCenter
                 id: zvuk
                 text: qsTr("Громкость звука:")
-                Layout.leftMargin: 40
+                Layout.leftMargin: 100
                 color: "Grey"
                 font{
                     pixelSize: 21
@@ -114,7 +114,7 @@ Page { //2 Laba
         Rectangle {
             visible: {if(rb1.checked){true}else{false}}
             Layout.row: 3
-            width: 480
+            width: 600
             height: 300
             // Layout.fillHeight: true
             //Layout.fillWidth: true
@@ -165,7 +165,7 @@ Page { //2 Laba
                 visible: {if(rb1.checked){true}else{false}}
                 id: sliderpl
                 width: parent.width
-                Layout.leftMargin: 100
+                Layout.leftMargin: 150
                 to: mediaplayer.duraction //длительность
                 property bool sync: false
                 onValueChanged: {
@@ -192,7 +192,7 @@ Page { //2 Laba
         Item {
             visible: {if(rb2.checked){true}else{false}}
             Layout.row: 2
-            width: 480
+            width: 600
             height: 360
             
             Camera {
@@ -233,7 +233,7 @@ Page { //2 Laba
             Layout.row: 3
             onClicked:camera.imageCapture.captureToLocation("C:/Users/Ivan/Documents/Velikanov_Ivan_181-331_mob_dev/Lab1/photo")
             text: qsTr("Сделать фото")
-            Layout.leftMargin: 170
+            Layout.leftMargin: 250
             
         }
         //Camera

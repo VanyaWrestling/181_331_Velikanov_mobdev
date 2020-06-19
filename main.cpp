@@ -8,6 +8,7 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QBarSet>
 #include <QtCharts/QLegend>
+//#include <QtWebSockets / QtWebSockets>
 
 
 QT_CHARTS_USE_NAMESPACE
@@ -31,6 +32,8 @@ int main(int argc, char *argv[])
     context->setContextProperty("mail_model", httpcontroller.mail_model); //Перемещаемая модель, которой присваиваем имя
     context->setContextProperty("qhttpcontroller", &httpcontroller);
     context->setContextProperty("test", &test);
+    httpcontroller.db_read();
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -50,6 +53,12 @@ int main(int argc, char *argv[])
 
     QObject::connect(engine.rootObjects().first(), SIGNAL(token(QString)),
     &httpcontroller, SLOT(token(QString)));
+
+    QObject::connect(engine.rootObjects().first(), SIGNAL(db_read()),
+    &httpcontroller, SLOT(db_read()));
+
+    QObject::connect(engine.rootObjects().first(), SIGNAL(db_write()),
+    &httpcontroller, SLOT(db_write()));
 
     return app.exec();
 }

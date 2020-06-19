@@ -1,6 +1,7 @@
 QT += quick network
 QT += charts
-
+QT += sql
+QT += websockets
 
 CONFIG += c++11
 
@@ -9,11 +10,14 @@ CONFIG += c++11
 # depend on your compiler). Refer to the documentation for the
 # deprecated API to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
-DEPENDPATH += C:\Qt\Tools\OpenSSL\Win_x64\include
-INCLUDEPATH += C:\Qt\Tools\OpenSSL\Win_x64\include
+#DEPENDPATH += C:\Qt\Tools\OpenSSL\Win_x64\include
+#INCLUDEPATH += C:\Qt\Tools\OpenSSL\Win_x64\include
 
+# подключение библиотек для WIN
+INCLUDEPATH += C:\OpenSSL-Win64\include
+LIBS +=	-LC:\OpenSSL-Win64\lib\ -llibeay32 -lssleay32 -lubsec
 
-LIBS += C:\Qt\Tools\OpenSSL\Win_x64\lib\libcrypto.lib
+#LIBS += C:\Qt\Tools\OpenSSL\Win_x64\lib\libcrypto.lib
 
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

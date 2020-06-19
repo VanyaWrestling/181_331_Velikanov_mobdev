@@ -59,13 +59,17 @@ Page { //3 Laba
             id: img1lb3
             source: "qrc:/image.png"
             visible: true
+
             Layout.fillHeight: true
-            //Layout.fillWidth: true
+            Layout.fillWidth: true
             fillMode: Image.PreserveAspectFit
         }
         Item {
-            width: 200
-            height: 200
+            width: img1lb3.width
+           // height: 200
+            height: img1lb3.height
+            Layout.fillHeight: true
+            Layout.fillWidth: true
             ColumnLayout{
                 anchors.fill: parent
                 Layout.fillWidth: true
@@ -141,13 +145,15 @@ Page { //3 Laba
         Item {
 //            width: 150
 //            height: 150
+            height: rect.height
+            width: rect.width
 
             Layout.alignment: Qt.AlignCenter
 
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            Layout.leftMargin: 50
+            Layout.leftMargin: 20
             Layout.topMargin: 20
             RectangularGlow {
                 id: effect
@@ -164,7 +170,7 @@ Page { //3 Laba
                 //                anchors.centerIn: parent
 //                width: 100
 //                height: 100
-                width: Math.round(parent.width / 1.5)
+                width: Math.round(parent.width )
                 height: Math.round(parent.height )
                 radius: 25
 
@@ -190,6 +196,8 @@ Page { //3 Laba
         Item{
 //            width: 220
 //            height: 220
+            width: rec.width
+            height: rec.height
             Layout.fillHeight: true
             Layout.fillWidth: true
 
@@ -199,8 +207,9 @@ Page { //3 Laba
             Layout.topMargin: 20
             Rectangle{ // картинка
                 id: rec
-                width: 200
+               // width: 200
                 //height: 150
+                width: Math.round(parent.width)
                 height: Math.round(parent.height * 3)
                 color: "#FFC107"
                 radius: 15
@@ -237,10 +246,13 @@ Page { //3 Laba
                 //visible: false
             }
         }
+
         Slider{ // слайдер
             id: sliderMasked
             from: 0.0
             to: 1.0
+
+          //  anchors.verticalCenter: parent.verticalCenter
             Text {
                 Layout.alignment: parent.AlignCenter
                 id: lgText
@@ -253,7 +265,7 @@ Page { //3 Laba
                 }
             }
         }
-        
+
         //        Image {
         //            id: img3lb3
         //            source: "qrc:/image.png"
@@ -271,6 +283,7 @@ Page { //3 Laba
             saturation: sliderimg1.value
             lightness: sliderimg13.value
             cached: true
+
             
         }
         //        RectangularGlow {

@@ -22,10 +22,13 @@ public slots:
     QString token(QString add);
     void restRequest();
     void hashMD5(QString add);
+    void db_write();
+    bool db_read();
 signals:
     void toQML(QString reply, QString number);
     void toQML3(QString str1, QString str2);
     void toQML4();
+    void toQML91(int online, int offline, int between);
 
 protected:
     QObject *showHttp;
